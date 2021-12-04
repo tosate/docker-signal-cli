@@ -13,7 +13,7 @@ jobs:
         run: ./download_signal-cli.sh
 
       - name: Install Rust toolchain
-        uses: actions/checkout@v2
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           override: true
@@ -23,6 +23,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: signalapp/zkgroup
+        continue-on-error: true
 
       - name: Build zkgroup
         run: |
