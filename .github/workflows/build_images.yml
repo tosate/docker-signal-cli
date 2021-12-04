@@ -15,8 +15,8 @@ jobs:
       - name: Download artifact
         run: |
           ./download_signal-cli.sh
-          echo "tag_name=${TAG_NAME}" >> ${ASSET_VERSION}
-          echo "asset=${ASSET}" >> ${ASSET_ENV}
+          echo "tag_name=${TAG_NAME}" >> $ASSET_VERSION
+          echo "asset=${ASSET}" >> $ASSET_ENV
 
       - name: Prepare
         id: prep
