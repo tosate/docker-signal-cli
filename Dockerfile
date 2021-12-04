@@ -1,4 +1,4 @@
-FROM openjdk:17-slim
+FROM eclipse-temurin:17
 COPY qemu-arm-static /usr/bin/qemu-arm-static
 MAINTAINER signal-cli@devtom.de
 
