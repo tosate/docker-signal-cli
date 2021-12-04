@@ -32,12 +32,17 @@ jobs:
       - name: Build zkgroup
         continue-on-error: true
         run: |
+          pwd
           cd ffi/java
+          pwd
           make
 
       - name: Create libsignal-client
         run: |
+          ls -ali
+          pwd
           cd ../../../
+          pwd
           ls -ali
           mkdir libsignal-client
           cd libsignal-client
@@ -50,6 +55,7 @@ jobs:
       - name: Build libsignal-client
         run: |
           cd java
+          pwd
           ./build_jni.sh desktop
 
       - name: Change to root dir
