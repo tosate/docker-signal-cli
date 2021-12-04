@@ -1,9 +1,6 @@
 name: 'build images'
 
-on:
-  push:
-    branches:
-      - master
+on: workflow_dispatch
 
 jobs:
   docker: 
