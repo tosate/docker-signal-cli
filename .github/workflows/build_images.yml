@@ -5,6 +5,9 @@ on: workflow_dispatch
 jobs:
   docker: 
     runs-on: ubuntu-latest
+    env:
+      ASSET_VERSION: unknown
+      ASSET_ENV: unknown
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -12,13 +15,14 @@ jobs:
       - name: Download artifact
         run: |
           ./download_signal-cli.sh
-          echo ${ASSET} >> $ASSET_ENV
+          echo "tag_name=${TAGNAME} >> ${ASSET_VERSION}
+          echo "asset=${ASSET}" >> ${ASSET_ENV}
 
       - name: Prepare
         id: prep
         run: |
           DOCKER_IMAGE=${{secrets.DOCKER_USERNAME}}/${GITHUB_REPOSITORY#*/}
-          VERSION=${TAG_NAME}
+          VERSION=${ASSET_VERSION}
           SHORTREF=${GITHUB_SHA::8}
 
           TAGS="${DOCKER_IMAGE}:${VERSION},${DOCKER_IMAGE}:${SHORTREF},${DOCKER_IMAGE}:latest"
@@ -53,4 +57,4 @@ jobs:
           push: true
           tags: ${{ steps.prep.outputs.tags}}
           build-args:
-            SIGNAL_ASSET=$ASSET_ENV
+            SIGNAL_ASSET=${ASSET_ENV}
