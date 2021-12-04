@@ -5,9 +5,6 @@ on: workflow_dispatch
 jobs:
   docker: 
     runs-on: ubuntu-latest
-    env:
-      ASSET_VERSION: unknown
-      ASSET_ENV: unknown
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -15,8 +12,8 @@ jobs:
       - name: Download artifact
         run: |
           ./download_signal-cli.sh
-          echo "tag_name=${TAG_NAME}" >> $ASSET_VERSION
-          echo "asset=${ASSET}" >> $ASSET_ENV
+          echo "tag_name=${TAG_NAME}" >> $GITHUB_ENV
+          echo "asset=${ASSET}" >> $GITHUB_ENV
 
       - name: Prepare
         id: prep
