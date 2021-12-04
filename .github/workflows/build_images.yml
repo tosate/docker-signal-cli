@@ -10,10 +10,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Download artifact
-        run: |
-          ./download_signal-cli.sh
-          echo "tag_name=${TAG_NAME}" >> $GITHUB_ENV
-          echo "asset=${ASSET}" >> $GITHUB_ENV
+        run: ./download_signal-cli.sh
 
       - name: Prepare
         id: prep
