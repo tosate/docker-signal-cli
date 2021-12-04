@@ -19,6 +19,11 @@ jobs:
           override: true
           target: armv7-unknown-linux-gnueabihf
 
+      - name: Create zkgroup directory
+        run: |
+          mkdir zkgroup
+          cd zkgroup
+
       - name: Checkout zkgroup
         uses: actions/checkout@master
         with:
@@ -30,6 +35,13 @@ jobs:
           cd ffi/java
           make
 
+      - name: Create libsignal-client
+        run: |
+          cd ../../../
+          ls -ali
+          mkdir libsignal-client
+          cd libsignal-client
+
       - name: Checkout libsignal-client
         uses: actions/checkout@master
         with:
@@ -39,6 +51,11 @@ jobs:
         run: |
           cd java
           ./build_jni.sh desktop
+
+      - name: Change to root dir
+        run: |
+          cd ../../
+          ls -ali
 
       - name: Prepare
         id: prep
