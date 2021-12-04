@@ -12,6 +12,33 @@ jobs:
       - name: Download artifact
         run: ./download_signal-cli.sh
 
+      - name: Install Rust toolchain
+        uses: actions/checkout@v2
+        with:
+          toolchain: stable
+          override: true
+          target: armv7-unknown-linux-gnueabihf
+
+      - name: Checkout zkgroup
+        uses: actions/checkout@master
+        with:
+          repository: signalapp/zkgroup
+
+      - name: Build zkgroup
+        run: |
+          cd ffi/java
+          make
+
+      - name: Checkout libsignal-client
+        uses: actions/checkout@master
+        with:
+          repository: signalapp/libsignal-client
+
+      - name: Build libsignal-client
+        run: |
+          cd java
+          ./build_jni.sh desktop
+
       - name: Prepare
         id: prep
         run: |
@@ -47,7 +74,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm/v7
+          platforms: linux/arm/v7
           push: true
           tags: ${{ steps.prep.outputs.tags}}
           build-args:
