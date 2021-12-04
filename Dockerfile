@@ -4,7 +4,7 @@ MAINTAINER signal-cli@devtom.de
 
 ARG SIGNAL_ASSET
 
-ADD ${ASSET} /
+ADD ${SIGNAL_ASSET} /
 RUN mv /signal-cli-*/ /signal-cli/
 
 VOLUME /config
