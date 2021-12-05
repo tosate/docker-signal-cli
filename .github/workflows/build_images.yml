@@ -30,8 +30,6 @@ jobs:
         run: |
           cd zkgroup/ffi/java
           make
-          ls -ali
-          pwd
 
       - name: Checkout libsignal-client
         uses: actions/checkout@master
@@ -45,6 +43,17 @@ jobs:
           ./build_jni.sh desktop
           ls -ali
           pwd
+
+      - name: Show results
+        run: |
+          ls -ali zkgroup/ffi/java/target
+          echo "zkgroup/ffi/java/target"
+          ls -ali zkgroup/target
+          echo "zkgroup/target"
+          ls -ali libsignal-client/java/target
+          echo "libsignal-client/java/target"
+          ls -ali libsignal-client/target
+          echo "libsignal-client/target"
 
       - name: Prepare
         id: prep
