@@ -19,49 +19,32 @@ jobs:
           override: true
           target: armv7-unknown-linux-gnueabihf
 
-      - name: Create zkgroup directory
-        run: |
-          mkdir zkgroup
-          cd zkgroup
-
       - name: Checkout zkgroup
         uses: actions/checkout@master
         with:
           repository: signalapp/zkgroup
+          path: zkgroup
 
       - name: Build zkgroup
         continue-on-error: true
         run: |
-          pwd
-          cd ffi/java
-          pwd
+          cd zkgroup/ffi/java
           make
-
-      - name: Create libsignal-client
-        run: |
           ls -ali
           pwd
-          cd ../../../
-          pwd
-          ls -ali
-          mkdir libsignal-client
-          cd libsignal-client
 
       - name: Checkout libsignal-client
         uses: actions/checkout@master
         with:
           repository: signalapp/libsignal-client
+          path: libsignal-client
 
       - name: Build libsignal-client
         run: |
-          cd java
-          pwd
+          cd libsignal-client/java
           ./build_jni.sh desktop
-
-      - name: Change to root dir
-        run: |
-          cd ../../
           ls -ali
+          pwd
 
       - name: Prepare
         id: prep
